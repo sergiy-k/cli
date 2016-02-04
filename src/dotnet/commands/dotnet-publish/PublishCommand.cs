@@ -162,6 +162,7 @@ namespace Microsoft.DotNet.Tools.Publish
 
                 if (!results.All(r => r))
                 {
+                    Reporter.Error.WriteLine("Generating native images failed.");
                     return false;
                 }
             }

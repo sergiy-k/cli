@@ -7,6 +7,8 @@ namespace Microsoft.DotNet.Cli.Utils
 {
     public static class Constants
     {
+        public const string DefaultConfiguration = "Debug";
+
         public static readonly string ProjectFileName = "project.json";
         public static readonly string ExeSuffix = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? ".exe" : string.Empty;
 
@@ -15,7 +17,6 @@ namespace Microsoft.DotNet.Cli.Utils
                                                          ? new string[] { ".exe", ".cmd", ".bat" }
                                                          : new string[] { string.Empty };
 
-        public static readonly string DefaultConfiguration = "Debug";
         public static readonly string BinDirectoryName = "bin";
         public static readonly string ObjDirectoryName = "obj";
 

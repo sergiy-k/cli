@@ -12,10 +12,10 @@ namespace Microsoft.DotNet.Cli.Utils
 {
     internal static class CommandResolver
     {
-        public static CommandSpec TryResolveCommandSpec(string commandName, IEnumerable<string> args, NuGetFramework framework = null, bool useComSpec = false)
+        public static CommandSpec TryResolveCommandSpec(string commandName, IEnumerable<string> args, NuGetFramework framework = null, bool useComSpec = false, string configuration=Constants.DefaultConfiguration)
         {
             return ResolveFromRootedCommand(commandName, args, useComSpec) ??
-                   ResolveFromProjectDependencies(commandName, args, framework, useComSpec) ??
+                   ResolveFromProjectDependencies(commandName, args, framework, configuration, useComSpec) ??
                    ResolveFromProjectTools(commandName, args, useComSpec) ??
                    ResolveFromAppBase(commandName, args, useComSpec) ??
                    ResolveFromPath(commandName, args, useComSpec);
@@ -57,7 +57,7 @@ namespace Microsoft.DotNet.Cli.Utils
         }
 
         public static CommandSpec ResolveFromProjectDependencies(string commandName, IEnumerable<string> args,
-            NuGetFramework framework, bool useComSpec = false)
+            NuGetFramework framework, string configuration, bool useComSpec = false)
         {
             if (framework == null) return null;
 
@@ -69,7 +69,7 @@ namespace Microsoft.DotNet.Cli.Utils
 
             if (commandPackage == null) return null;
 
-            var depsPath = projectContext.GetOutputPathCalculator().GetDepsPath(Constants.DefaultConfiguration);
+            var depsPath = projectContext.GetOutputPathCalculator().GetDepsPath(configuration);
 
             return ConfigureCommandFromPackage(commandName, args, commandPackage, projectContext, depsPath, useComSpec);
         }

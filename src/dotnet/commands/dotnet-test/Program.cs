@@ -98,7 +98,7 @@ namespace Microsoft.DotNet.Tools.Test
             var commandArgs = new List<string> { projectContext.GetOutputPathCalculator().GetAssemblyPath(configuration) };
             commandArgs.AddRange(app.RemainingArguments);
 
-            return Command.CreateDotNet($"{GetCommandName(testRunner)}", commandArgs, projectContext.TargetFramework)
+            return Command.CreateDotNet($"{GetCommandName(testRunner)}", commandArgs, projectContext.TargetFramework, configuration: configuration)
                 .ForwardStdErr()
                 .ForwardStdOut()
                 .Execute()

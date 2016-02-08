@@ -40,7 +40,7 @@ header "Setting Stage2 as PATH and DOTNET_TOOLS"
 setPathAndHome "$Stage2Dir"
 
 header "Testing"
-_ "$RepoRoot\scripts\test\test.ps1"
+_ "$RepoRoot\scripts\test\test.ps1" @("$Configuration")
 
 header "Validating Dependencies"
 _ "$RepoRoot\scripts\test\validate-dependencies.ps1"

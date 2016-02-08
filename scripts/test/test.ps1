@@ -3,6 +3,9 @@
 # Licensed under the MIT license. See LICENSE file in the project root for full license information.
 #
 
+param(
+    [string]$Configuration="Debug")
+
 . "$PSScriptRoot\..\common\_common.ps1"
 
 header "Setting up Tests"

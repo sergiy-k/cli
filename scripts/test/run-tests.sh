@@ -16,6 +16,9 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 source "$DIR/../common/_common.sh"
 
+echo "** Run Tests **"
+echo $CONFIGURATION
+
 TestProjects=$(loadTestProjectList)
 TestScripts=$(loadTestScriptList)
 

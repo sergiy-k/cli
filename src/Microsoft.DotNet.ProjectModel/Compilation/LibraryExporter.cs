@@ -341,8 +341,14 @@ namespace Microsoft.DotNet.ProjectModel.Compilation
         {
             foreach (var assemblyPath in section)
             {
+                var assetName = Path.GetFileNameWithoutExtension(assemblyPath);
+                if (assetName.EndsWith(".ni"))
+                {
+                    // This is a native image, trim ".ni" off the end
+                    assetName = assetName.Substring(0, assetName.Length - 3);
+                }
                 assets.Add(new LibraryAsset(
-                    Path.GetFileNameWithoutExtension(assemblyPath),
+                    assetName,
                     assemblyPath,
                     Path.Combine(package.Path, assemblyPath)));
             }

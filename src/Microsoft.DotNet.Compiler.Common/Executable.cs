@@ -102,6 +102,28 @@ namespace Microsoft.Dotnet.Cli.Compiler.Common
                 .ToArray();
 
             CopyAllDependencies(outputPath, projectExports);
+
+            FixUpMscorlib(exporter);
+        }
+
+        private static void FixUpMscorlib(LibraryExporter exporter)
+        {
+            // HACK(anurse): We need to copy mscorlib.dll so it is next to libcoreclr
+            // Find the package that provides mscorlib.dll or mscorlib.ni.dll
+            var mscorlibLibrary = exporter
+                .GetDependencies()
+                .FirstOrDefault(e => e.RuntimeAssemblies.Any(l => l.Name.Equals("mscorlib")));
+            if (mscorlibLibrary == null)
+            {
+                return; // Couldn't find mscorlib, whatever.
+            }
+
+            var mscorlibAsset = mscorlibLibrary.RuntimeAssemblies.First(l => l.Name.Equals("mscorlib"));
+            var nativeAsset = mscorlibLibrary.NativeLibraries.First();
+
+            // Copy mscorlib in to the directory containing the native assets
+            var dir = Path.GetDirectoryName(nativeAsset.ResolvedPath);
+            File.Copy(mscorlibAsset.ResolvedPath, Path.Combine(dir, Path.GetFileName(mscorlibAsset.ResolvedPath)));
         }
 
         public void GenerateBindingRedirects(LibraryExporter exporter)

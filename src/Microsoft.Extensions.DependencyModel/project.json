@@ -11,7 +11,12 @@
   },
   "dependencies": {
     "Newtonsoft.Json": "7.0.1",
-    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-16537"
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc2-16537",
+    "Microsoft.Extensions.EnvironmentAbstractions": {
+      "target": "project",
+      "version": "1.0.0-*"
+
+    }
   },
   "frameworks": {
     "net451": { },

@@ -25,10 +25,17 @@ namespace Microsoft.DotNet.Tools.Compiler.Tests
         }
 
         [Fact]
+        public void It_passes_a_FullTargetFramework_variable_to_the_pre_compile_scripts()
+        {
+            _fixture.PreCompileScriptVariables.Should().ContainKey("compile:FullTargetFramework");
+            _fixture.PreCompileScriptVariables["compile:FullTargetFramework"].Should().Be("dnxcore,Version=v5.0");
+        }
+
+        [Fact]
         public void It_passes_a_TargetFramework_variable_to_the_pre_compile_scripts()
         {
             _fixture.PreCompileScriptVariables.Should().ContainKey("compile:TargetFramework");
-            _fixture.PreCompileScriptVariables["compile:TargetFramework"].Should().Be("dnxcore,Version=v5.0");
+            _fixture.PreCompileScriptVariables["compile:TargetFramework"].Should().Be("dnxcore50");
         }
 
         [Fact]
@@ -76,10 +83,17 @@ namespace Microsoft.DotNet.Tools.Compiler.Tests
         }
 
         [Fact]
+        public void It_passes_a_FullTargetFramework_variable_to_the_post_compile_scripts()
+        {
+            _fixture.PostCompileScriptVariables.Should().ContainKey("compile:FullTargetFramework");
+            _fixture.PostCompileScriptVariables["compile:FullTargetFramework"].Should().Be("dnxcore,Version=v5.0");
+        }
+
+        [Fact]
         public void It_passes_a_TargetFramework_variable_to_the_post_compile_scripts()
         {
             _fixture.PostCompileScriptVariables.Should().ContainKey("compile:TargetFramework");
-            _fixture.PostCompileScriptVariables["compile:TargetFramework"].Should().Be("dnxcore,Version=v5.0");
+            _fixture.PostCompileScriptVariables["compile:TargetFramework"].Should().Be("dnxcore50");
         }
 
         [Fact]
